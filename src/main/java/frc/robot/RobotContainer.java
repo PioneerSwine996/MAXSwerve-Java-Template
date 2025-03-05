@@ -114,9 +114,9 @@ public class RobotContainer {
     swerveDriveSubsystem.setDefaultCommand(
         new RunCommand(() ->
             swerveDriveSubsystem.drive(
-                -MathUtil.applyDeadband(swerveDriverController.getLeftY(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(swerveDriverController.getLeftX(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(swerveDriverController.getRightX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(driverCommandXboxController.getLeftY(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(driverCommandXboxController.getLeftX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(driverCommandXboxController.getRightX(), OIConstants.kDriveDeadband),
                 true),
             swerveDriveSubsystem));
 
@@ -161,33 +161,33 @@ public class RobotContainer {
     autoChooser.addOption("Swerve Trajectory", 
         swerveControllerCommand.andThen(() -> swerveDriveSubsystem.drive(0, 0, 0, false)));
 
-    // --- Option 2: Autonomous Forward from the second file ---
-//     autoChooser.addOption("AutonomusFoward", new SequentialCommandGroup(
-//         new AutoForawrd(canDriveSubsystem, Constants.DriveConstants.distance),
-//         new ParallelCommandGroup(
-//             new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
-//             new SequentialCommandGroup(
-//                 new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)))));
+    // // --- Option 2: Autonomous Forward from the second file ---
+    // autoChooser.addOption("AutonomusFoward", new SequentialCommandGroup(
+    //     new AutoForawrd(canDriveSubsystem, Constants.DriveConstants.distance),
+    //     new ParallelCommandGroup(
+    //         new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
+    //         new SequentialCommandGroup(
+    //             new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)))));
 
-//     // --- Option 3: Autonomous Turn then Forward (second file) ---
-//     autoChooser.addOption("AutonomousTurnthenFoward", new SequentialCommandGroup(
-//         new AutoTurn(canDriveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn),
-//         new AutoForawrd(canDriveSubsystem, Constants.DriveConstants.distance),
-//         new ParallelCommandGroup(
-//             new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
-//         new SequentialCommandGroup(
-//             new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
+    // // --- Option 3: Autonomous Turn then Forward (second file) ---
+    // autoChooser.addOption("AutonomousTurnthenFoward", new SequentialCommandGroup(
+    //     new AutoTurn(canDriveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn),
+    //     new AutoForawrd(canDriveSubsystem, Constants.DriveConstants.distance),
+    //     new ParallelCommandGroup(
+    //         new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
+    //     new SequentialCommandGroup(
+    //         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
 
-//     // --- Option 4: AprilTag Test (second file) ---
-//     autoChooser.addOption("AprilTag Test", new SequentialCommandGroup(new AprilTag(canDriveSubsystem)));
+    // // --- Option 4: AprilTag Test (second file) ---
+    // autoChooser.addOption("AprilTag Test", new SequentialCommandGroup(new AprilTag(canDriveSubsystem)));
 
-//     // Set a default option (here we choose Autonomous Forward)
-//     autoChooser.setDefaultOption("AutonomusFoward", new SequentialCommandGroup(
-//         new AutoForawrd(canDriveSubsystem, Constants.DriveConstants.distance),
-//         new ParallelCommandGroup(
-//             new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
-//             new SequentialCommandGroup(
-//                 new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)))));
+    // // Set a default option (here we choose Autonomous Forward)
+    // autoChooser.setDefaultOption("AutonomusFoward", new SequentialCommandGroup(
+    //     new AutoForawrd(canDriveSubsystem, Constants.DriveConstants.distance),
+    //     new ParallelCommandGroup(
+    //         new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
+    //         new SequentialCommandGroup(
+    //             new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)))));
   }
 
   /**
