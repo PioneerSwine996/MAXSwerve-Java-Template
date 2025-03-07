@@ -62,7 +62,7 @@ public class MAXSwerveModule{
 
     m_chassisAngularOffset = chassisAngularOffset;
     // Initialize the desired state angle using the CANCoder reading (converted to radians).
-    m_desiredState.angle = new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition());
+    m_desiredState.angle = new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition().getValue());
     m_drivingEncoder.setPosition(0);
   }
 
@@ -75,7 +75,7 @@ public class MAXSwerveModule{
     // Convert the CANCoder's absolute position from degrees to radians,
     // then apply the chassis angular offset.
     return new SwerveModuleState(m_drivingEncoder.getVelocity(),
-        new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition()))
+        new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition().getValue()))
 ;
   }
 
@@ -87,7 +87,7 @@ public class MAXSwerveModule{
   public SwerveModulePosition getPosition() {
     return new SwerveModulePosition(
         m_drivingEncoder.getPosition(),
-        new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition()));
+        new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition().getValue()));
   }
 
   /**
@@ -101,7 +101,7 @@ public class MAXSwerveModule{
     correctedDesiredState.angle = desiredState.angle.plus(Rotation2d.fromRadians(m_chassisAngularOffset));
 
     // Optimize the reference state to avoid spinning further than necessary.
-    correctedDesiredState.optimize(new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition()));
+    correctedDesiredState.optimize(new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition().getValue()));
 
     m_drivingClosedLoopController.setReference(correctedDesiredState.speedMetersPerSecond, ControlType.kVelocity);
     m_turningClosedLoopController.setReference(correctedDesiredState.angle.getRadians(), ControlType.kPosition);

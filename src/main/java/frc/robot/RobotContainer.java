@@ -25,17 +25,17 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ElevatorPID;
-import frc.robot.commands.Pivot;
-import frc.robot.commands.AlgaePivot;
-import frc.robot.commands.AlageRoller;
-import frc.robot.commands.AutoRoller;
+// import frc.robot.commands.ElevatorPID;
+// import frc.robot.commands.Pivot;
+// import frc.robot.commands.AlgaePivot;
+// import frc.robot.commands.AlageRoller;
+// import frc.robot.commands.AutoRoller;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.CANRollerSubsystem;
-import frc.robot.subsystems.ElevatorSubSystems;
-import frc.robot.subsystems.PivotSubSystem;
-import frc.robot.subsystems.AlgaeSubSystem;
-import frc.robot.subsystems.AlageRollerSubsystem;
+// import frc.robot.subsystems.CANRollerSubsystem;
+// import frc.robot.subsystems.ElevatorSubSystems;
+// import frc.robot.subsystems.PivotSubSystem;
+// import frc.robot.subsystems.AlgaeSubSystem;
+// import frc.robot.subsystems.AlageRollerSubsystem;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import java.util.List;
 import java.lang.Math;
@@ -46,11 +46,11 @@ public class RobotContainer {
   private final DriveSubsystem swerveDriveSubsystem = new DriveSubsystem();
 
   // --- Subsystems from the second code ---
-  private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
-  private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
-  private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
-  private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
-  private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
+//   private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
+//   private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
+//   private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
+//   private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
+//   private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
 //   private final AutoRoller autoRoller = new AutoRoller(rollerSubsystem, 0);
 
   // --- Controllers ---
@@ -58,8 +58,8 @@ public class RobotContainer {
   private final XboxController swerveDriverController = new XboxController(OIConstants.kDriverControllerPort);
   
   // The second code uses CommandXboxControllers.
-  private final CommandXboxController driverCommandXboxController = new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
-  private final CommandXboxController operatorController = new CommandXboxController(OperatorConstants.OPERATOR_CONTROLLER_PORT);
+//   private final CommandXboxController driverCommandXboxController = new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
+  // private final CommandXboxController operatorController = new CommandXboxController(OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   // --- Autonomous chooser ---
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -88,22 +88,22 @@ public class RobotContainer {
         .whileTrue(new RunCommand(() -> swerveDriveSubsystem.setX(), swerveDriveSubsystem));
 
     // --- Bindings from the second code ---
-    operatorController.a().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE));
-    operatorController.b().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE));
+    // operatorController.a().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE));
+    // operatorController.b().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE));
 
-    operatorController.leftTrigger().toggleOnTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));
+    // operatorController.leftTrigger().toggleOnTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));
     
-    operatorController.y().toggleOnTrue(Commands.parallel(
-            new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint),
-            new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.ALAGE_ROLLER_INTAKE)));
+    // operatorController.y().toggleOnTrue(Commands.parallel(
+    //         new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint),
+    //         new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.ALAGE_ROLLER_INTAKE)));
     
-    operatorController.x().whileTrue(new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.AlAGE_ROLLER_SHOOT));
+    // operatorController.x().whileTrue(new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.AlAGE_ROLLER_SHOOT));
     
     // (Optional: if left bumper binding is needed, it can be added here)
     // operatorController.leftBumper().whileTrue(Commands.parallel());
 
-    operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
-    operatorController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
+    // operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
+    // operatorController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
   }
 
   /**
@@ -114,9 +114,9 @@ public class RobotContainer {
     swerveDriveSubsystem.setDefaultCommand(
         new RunCommand(() ->
             swerveDriveSubsystem.drive(
-                -MathUtil.applyDeadband(driverCommandXboxController.getLeftY(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(driverCommandXboxController.getLeftX(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(driverCommandXboxController.getRightX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(swerveDriverController.getLeftY(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(swerveDriverController.getLeftX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(swerveDriverController.getRightX(), OIConstants.kDriveDeadband),
                 true),
             swerveDriveSubsystem));
 
