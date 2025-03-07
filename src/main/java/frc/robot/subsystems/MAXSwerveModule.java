@@ -44,7 +44,7 @@ public class MAXSwerveModule{
    * @param chassisAngularOffset Offset to align the module's chassis angle.
    */
   public MAXSwerveModule(int drivingCANId, int turningCANId, int turningEncoderCANId, double chassisAngularOffset) {
-    m_drivingSpark = new SparkMax(drivingCANId, MotorType.kBrushless;
+    m_drivingSpark = new SparkMax(drivingCANId, MotorType.kBrushless);
     m_turningSpark = new SparkMax(turningCANId, MotorType.kBrushless);
 
     m_drivingEncoder = m_drivingSpark.getEncoder();
