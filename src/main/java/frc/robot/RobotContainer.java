@@ -51,7 +51,7 @@ public class RobotContainer {
   private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
   private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
   private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
-  private final AutoRoller autoRoller = new AutoRoller(rollerSubsystem, 0);
+//   private final AutoRoller autoRoller = new AutoRoller(rollerSubsystem, 0);
 
   // --- Controllers ---
   // Swerve drive uses a traditional XboxController.
