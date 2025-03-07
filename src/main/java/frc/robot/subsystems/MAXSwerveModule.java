@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.hardware.CANcoder;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -15,9 +17,9 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
-import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 
+import edu.wpi.first.units.measure.Angle;
 import frc.robot.Configs;
 
 public class MAXSwerveModule{
@@ -25,7 +27,7 @@ public class MAXSwerveModule{
   private final SparkMax m_turningSpark;
 
   private final RelativeEncoder m_drivingEncoder;
-  private final CANCoder m_turningEncoder;
+  private final CANcoder m_turningEncoder;
 
   private final SparkClosedLoopController m_drivingClosedLoopController;
   private final SparkClosedLoopController m_turningClosedLoopController;
@@ -49,15 +51,15 @@ public class MAXSwerveModule{
 
     m_drivingEncoder = m_drivingSpark.getEncoder();
     // Instead of using the REV absolute encoder, create a new CANCoder instance.
-    m_turningEncoder = new CANCoder(turningEncoderCANId);
+    m_turningEncoder = new CANcoder(turningEncoderCANId);
 
     m_drivingClosedLoopController = m_drivingSpark.getClosedLoopController();
     m_turningClosedLoopController = m_turningSpark.getClosedLoopController();
 
     // Configure the external CANCoder.
-    CANCoderConfiguration canCoderConfig = new CANCoderConfiguration();
+    CANcoderConfiguration caNcoderConfiguration = new CANcoderConfiguration();
     // You can adjust the configuration as needed (for example, sensor direction or range).
-    m_turningEncoder.configAllSettings(canCoderConfig);
+    m_turningEncoder.getConfigurator(CANcoderConfiguration);
 
     // Apply the respective configurations to the SPARKS.
     m_drivingSpark.configure(Configs.MAXSwerveModule.drivingConfig, ResetMode.kResetSafeParameters,
@@ -67,7 +69,7 @@ public class MAXSwerveModule{
 
     m_chassisAngularOffset = chassisAngularOffset;
     // Initialize the desired state angle using the CANCoder reading (converted to radians).
-    m_desiredState.angle = new Rotation2d(Math.toRadians(m_turningEncoder.getAbsolutePosition()));
+    m_desiredState.angle = new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition());
     m_drivingEncoder.setPosition(0);
   }
 
@@ -80,7 +82,7 @@ public class MAXSwerveModule{
     // Convert the CANCoder's absolute position from degrees to radians,
     // then apply the chassis angular offset.
     return new SwerveModuleState(m_drivingEncoder.getVelocity(),
-        new Rotation2d(Math.toRadians(m_turningEncoder.getAbsolutePosition()) - m_chassisAngularOffset));
+        new Rotation2d((Angle) m_turningEncoder.getAbsolutePosition()) - m_chassisAngularOffset());
   }
 
   /**
